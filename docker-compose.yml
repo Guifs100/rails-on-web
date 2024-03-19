@@ -1,0 +1,19 @@
+services:
+  web:
+    build: .
+    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
+    image: rails_web
+    container_name: rails_web
+    tty: true
+    stdin_open: true
+    volumes:
+      - .:/rails-on-web/
+    ports:
+      - "3000:3000"
+    networks:
+    - policy-service
+
+networks:
+  default:
+  policy-service:
+    external: true
