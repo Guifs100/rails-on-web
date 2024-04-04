@@ -6,6 +6,8 @@ services:
     container_name: rails_web
     tty: true
     stdin_open: true
+    env_file:
+      - .env
     volumes:
       - .:/rails-on-web/
     ports:
