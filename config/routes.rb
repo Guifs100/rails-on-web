@@ -1,6 +1,4 @@
 Rails.application.routes.draw do
-  # get '/login', to: 'sessions#new'
-  # get '/home', to: 'home#index'
   root 'application#index'
   get 'auth/:provider/callback', to: 'sessions#omniauth'
   get '/login', to: 'sessions#new'
