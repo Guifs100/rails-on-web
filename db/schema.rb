@@ -20,5 +20,4 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_12_161639) do
     t.string "uid"
     t.string "provider"
   end
-
 end
