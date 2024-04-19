@@ -1,4 +1,3 @@
-
 class User < ApplicationRecord
   validates :email, presence: true
   validates :username, presence: true
@@ -6,5 +5,9 @@ class User < ApplicationRecord
 
   def login_with_provider?
     provider.present?
+  end
+
+  def authenticate(unencrypted_password)
+    BCrypt::Password.new(password_digest).is_password?(unencrypted_password)
   end
 end

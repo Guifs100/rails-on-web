@@ -1,8 +1,4 @@
 class ApplicationController < ActionController::Base
-  def index
-    required_login
-  end
-
   private
 
   def required_login

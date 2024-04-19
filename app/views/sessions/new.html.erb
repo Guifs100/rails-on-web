@@ -3,7 +3,6 @@
     <p><%= flash[:error] %></p>
 <% end %>
 
-
 <%= form_with scope: :session, url: login_path, data: {turbo: false} do |f| %>
     <%= f.label :username %>
     <%= f.text_field :username %>
