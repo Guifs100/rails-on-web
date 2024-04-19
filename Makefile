@@ -16,8 +16,12 @@ exec:
 down:
 	docker compose down --remove-orphans
 
+attach:
+	docker attach rails_web --detach-keys="ctrl-q"
+
 help:
 	@echo "Uso:"
+	@echo "  make attach                Attacha em um conteiner já upado, para sair aperte 'ctrl+q'"
 	@echo "  make run                   Inicia um novo container com o bash"
 	@echo "  make build                 Monta a imagem configurado no projeto"
 	@echo "  make down                  derruba todos os container e os orfãos"
