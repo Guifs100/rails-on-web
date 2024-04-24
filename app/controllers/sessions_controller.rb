@@ -1,5 +1,3 @@
-require 'bcrypt'
-
 class SessionsController < ApplicationController
   def new
     redirect_to root_path if logged_in?
@@ -18,7 +16,7 @@ class SessionsController < ApplicationController
 
   def omniauth
     @user = User.find_or_create_by(uid: request.env['omniauth.auth']['uid'], provider: request.env['omniauth.auth']['provider']) do |u|
-        u.username = request.env['omniauth.auth']['info']['name']
+        u.username = request.env['omniauth.auth']['info']['name'] || request.env['omniauth.auth']['info']['email']
         u.email = request.env['omniauth.auth']['info']['email']
     end
     if @user.valid?
