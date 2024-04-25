@@ -7,7 +7,7 @@ Rails.application.config.middleware.use OmniAuth::Builder do
     image_size: 50
   }
 
-  provider :cognito_idp, ENV['COGNITO_CLIENT_ID'],ENV['COGNITO_CLIENT_SECRET'],
+  provider :cognito_idp, ENV['COGNITO_CLIENT_ID'], ENV['COGNITO_CLIENT_SECRET'],
     client_options: {
       site: ENV['COGNITO_USER_POOL_SITE']
     },
