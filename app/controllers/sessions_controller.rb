@@ -1,5 +1,3 @@
-require 'bcrypt'
-
 class SessionsController < ApplicationController
   def new
     redirect_to root_path if logged_in?
@@ -17,10 +15,11 @@ class SessionsController < ApplicationController
   end
 
   def omniauth
-    @user = User.find_or_create_by(uid: request.env['omniauth.auth']['uid'], provider: request.env['omniauth.auth']['provider']) do |u|
-        u.username = request.env['omniauth.auth']['info']['name']
-        u.email = request.env['omniauth.auth']['info']['email']
+    @user = User.find_or_create_by(uid: omniauth_auth['uid'], provider: omniauth_auth['provider']) do |u|
+      u.email = omniauth_auth.dig('info', 'email')
+      u.username = omniauth_auth.dig('info', 'name') || u.email
     end
+
     if @user.valid?
         session[:user_id] = @user.id
         redirect_to root_path
@@ -32,5 +31,13 @@ class SessionsController < ApplicationController
   def destroy
     session.delete :user_id
     redirect_to root_path
+  end
+
+  private
+
+  attr_reader :omniauth_auth
+
+  def omniauth_auth
+    @omniauth_auth ||= request.env['omniauth.auth']
   end
 end
