@@ -2,15 +2,13 @@ class HomeController < ApplicationController
   def index
     required_login
 
-    policies(request_graphql)
+    @policies = policies(request_graphql)
   end
 
   private
 
-  attr_reader :policies
-
   def policies(response_body)
-    @policies ||= response_body.dig(:data, :policies)
+    response_body&.dig(:data, :policies)
   end
 
   def request_graphql
@@ -23,6 +21,8 @@ class HomeController < ApplicationController
 
     response = Net::HTTP.post(url, body, headers)
     responsed_body = JSON.parse(response.body, symbolize_names: true)
+  rescue
+    nil
   end
 
   def body_builder
