@@ -11,7 +11,7 @@ up:
 	docker compose up
 
 exec:
-	docker exec -it car_policies_web bash
+	docker exec -it rails_web bash
 
 down:
 	docker compose down --remove-orphans
