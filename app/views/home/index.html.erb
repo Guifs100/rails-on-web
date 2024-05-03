@@ -1,2 +1,24 @@
 <h1> Welcome <%= @current_user.username %>! </h1>
 <%= button_to "Logout", logout_path, method: :delete %>
+
+<% if @policies%>
+    <h2> Todas as policies </h2>
+    <table border="1">
+        <tr>
+            <td>Data da emissão</td>
+            <td>Data da expiração</td>
+            <td>Segurado</td>
+            <td>Modelo do veiculo</td>
+        </tr>
+        <% @policies.each do |policy| %>
+        <tr>
+            <td><%= policy[:dateIssue] %></td>
+            <td><%= policy[:policyExpiration] %></td>
+            <td><%= policy[:insured][:name] %></td>
+            <td><%= policy[:vehicle][:model] %></td>
+        </tr>
+        <% end %>
+    </table>
+<% else %>
+    <h2> Nenhuma policy encontrada! </h2>
+<% end %>

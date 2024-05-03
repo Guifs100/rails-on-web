@@ -49,6 +49,7 @@ gem "bootsnap", require: false
 # gem "image_processing", "~> 1.2"
 
 gem 'bcrypt'
+gem 'jwt'
 gem 'omniauth'
 gem 'omniauth-rails_csrf_protection'
 gem 'omniauth-google-oauth2'

@@ -7,6 +7,7 @@ class SessionsController < ApplicationController
     @user = User.find_by(username: params[:session][:username])
     if @user && @user.authenticate(params[:session][:password])
       session[:user_id] = @user.id
+
       redirect_to root_path
     else
       flash[:error] = 'Invalid username or password'
@@ -21,8 +22,9 @@ class SessionsController < ApplicationController
     end
 
     if @user.valid?
-        session[:user_id] = @user.id
-        redirect_to root_path
+      session[:user_id] = @user.id
+
+      redirect_to root_path
     else
         render :new
     end
