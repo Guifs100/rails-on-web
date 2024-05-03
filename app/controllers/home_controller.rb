@@ -2,17 +2,13 @@ class HomeController < ApplicationController
   def index
     required_login
 
-    policies(request_graphql)
+    @policies = policies(request_graphql)
   end
 
   private
 
-  attr_reader :policies
-
   def policies(response_body)
-    @policies ||= response_body.dig(:data, :policies)
-  rescue
-    nil
+    response_body&.dig(:data, :policies)
   end
 
   def request_graphql
