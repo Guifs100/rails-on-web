@@ -3,6 +3,11 @@ Rails.application.routes.draw do
 
   resource :policies, only: [:new, :create]
 
+  resource :charges, only: [:new, :create] do
+    get '/success', to:'charges#success'
+    get '/cancel', to:'charges#cancel'
+  end
+
   get '/new_policies', to: 'policies#new'
   post '/create_policies', to: 'policies#create'
 

@@ -50,6 +50,7 @@ gem "sassc-rails"
 
 gem 'bcrypt'
 gem 'dotenv-rails'
+gem 'stripe'
 gem 'jwt'
 gem 'omniauth'
 gem 'omniauth-rails_csrf_protection'
