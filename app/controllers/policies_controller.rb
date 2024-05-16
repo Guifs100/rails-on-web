@@ -5,12 +5,26 @@ class PoliciesController < ApplicationController
   end
 
   def create
+    session = Stripe::Checkout::Session.create(
+      payment_method_types: ['card'],
+      line_items: [{
+        price: 'price_1PDsdHFAZsZguLCRZjU1gwDt',
+        quantity: 1,
+      }],
+      mode: 'payment',
+      success_url:  success_charges_url,
+      cancel_url: cancel_charges_url
+    )
+
     policy = policy_params
+    policy[:payment_id] = session.id
+    policy[:payment_link] = session.url
+
     headers = {
       'Content-Type' => 'application/json',
       'Authorization' => "Bearer #{encode}"
     }
-    body = body_builder(policy_params).to_json
+    body = body_builder(policy).to_json
     url = URI("http://web:3003/graphql")
 
     response = Requester.send_request(headers, body, url)
@@ -55,7 +69,11 @@ class PoliciesController < ApplicationController
                     brand: \"#{policy[:brand]}\",
                     model: \"#{policy[:model]}\",
                     year: \"#{policy[:year]}\"
-                }
+                },
+                charge: {
+                  paymentId: \"#{policy[:payment_id]}\",
+                  paymentLink: \"#{policy[:payment_link]}\",
+                },
             }
         }
          ) { result }

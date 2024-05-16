@@ -32,6 +32,7 @@ class HomeController < ApplicationController
             id
             dateIssue
             policyExpiration
+            status
             insured {
                 id
                 name
@@ -43,6 +44,11 @@ class HomeController < ApplicationController
                 year
                 model
                 brand
+            }
+            charge {
+              id
+              paymentId
+              paymentLink
             }
         }
       }
