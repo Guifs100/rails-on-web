@@ -1,14 +1,17 @@
 <h1> Welcome <%= @current_user.username %>! </h1>
+<%= button_to "Create new policy", new_policies_path, method: :get %>
 <%= button_to "Logout", logout_path, method: :delete %>
 
 <% if @policies%>
-    <h2> Todas as policies </h2>
-    <table border="1">
+    <h2>Policies Created</h2>
+    <table class='table' border="1">
         <tr>
-            <td>Data da emissão</td>
-            <td>Data da expiração</td>
-            <td>Segurado</td>
-            <td>Modelo do veiculo</td>
+            <td>Policy Start</td>
+            <td>Policy Finish</td>
+            <td>Insured</td>
+            <td>Car Model</td>
+            <td>Status</td>
+            <td>Payment Link</td>
         </tr>
         <% @policies.each do |policy| %>
         <tr>
@@ -16,9 +19,14 @@
             <td><%= policy[:policyExpiration] %></td>
             <td><%= policy[:insured][:name] %></td>
             <td><%= policy[:vehicle][:model] %></td>
+            <td><%= policy[:status] %></td>
+            <td style="max-width: 200px; overflow: hidden;">
+                <a href="<%= policy[:charge][:paymentLink] %>" target="_blank"> Link to pay</a>
+            </td>
+
         </tr>
         <% end %>
     </table>
 <% else %>
-    <h2> Nenhuma policy encontrada! </h2>
+    <h2> No policy found! </h2>
 <% end %>
